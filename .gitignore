@@ -1,0 +1,11 @@
+node_modules/
+public/index.html
+public/style.css
+public/app.js
+public/images/vehicles/
+.env
+styleguide_page-*.png
+styleguide.pdf
+styleguide.zip
+styleguide_images/
+.DS_Store
