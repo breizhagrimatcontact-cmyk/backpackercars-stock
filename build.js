@@ -1,14 +1,18 @@
-const { Client } = require("@notionhq/client");
 const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
-const DATABASE_ID = "2864f7e0-a264-8073-853a-c5329f5ff2f0";
+const DATA_SOURCE_ID = "2864f7e0-a264-8055-8547-000bc8698089";
+const NOTION_API = "https://api.notion.com/v1";
 const OUTPUT_DIR = path.join(__dirname, "public");
 const IMAGES_DIR = path.join(OUTPUT_DIR, "images", "vehicles");
 
-const notion = new Client({ auth: NOTION_TOKEN });
+const headers = {
+  Authorization: `Bearer ${NOTION_TOKEN}`,
+  "Notion-Version": "2025-09-03",
+  "Content-Type": "application/json",
+};
 
 async function downloadImage(url, filename) {
   try {
@@ -28,8 +32,7 @@ async function queryStock() {
   const pages = [];
   let cursor;
   do {
-    const res = await notion.databases.query({
-      database_id: DATABASE_ID,
+    const body = {
       filter: {
         and: [
           { property: "Sold?", checkbox: { equals: false } },
@@ -37,10 +40,22 @@ async function queryStock() {
         ],
       },
       sorts: [{ property: "Price", direction: "ascending" }],
-      start_cursor: cursor,
+      page_size: 100,
+    };
+    if (cursor) body.start_cursor = cursor;
+
+    const res = await fetch(`${NOTION_API}/data_sources/${DATA_SOURCE_ID}/query`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
     });
-    pages.push(...res.results);
-    cursor = res.has_more ? res.next_cursor : undefined;
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Notion API error ${res.status}: ${err}`);
+    }
+    const data = await res.json();
+    pages.push(...data.results);
+    cursor = data.has_more ? data.next_cursor : undefined;
   } while (cursor);
   return pages;
 }
