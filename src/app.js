@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const noResults = document.getElementById("no-results");
 
   const brandFilter = document.getElementById("filter-brand");
-  const stateFilter = document.getElementById("filter-state");
   const fuelFilter = document.getElementById("filter-fuel");
   const transFilter = document.getElementById("filter-transmission");
   const priceFilter = document.getElementById("filter-price");
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function applyFilters() {
     const brand = brandFilter.value;
-    const state = stateFilter.value;
     const fuel = fuelFilter.value;
     const trans = transFilter.value;
     const maxPrice = Number(priceFilter.value);
@@ -29,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cards.forEach((card) => {
       const match =
         (!brand || card.dataset.brand === brand) &&
-        (!state || card.dataset.state === state) &&
         (!fuel || card.dataset.fuel === fuel) &&
         (!trans || card.dataset.transmission === trans) &&
         (maxPrice >= 50000 || Number(card.dataset.price) <= maxPrice);
@@ -41,13 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
     noResults.hidden = visible > 0;
   }
 
-  [brandFilter, stateFilter, fuelFilter, transFilter, priceFilter].forEach(
+  [brandFilter, fuelFilter, transFilter, priceFilter].forEach(
     (el) => el.addEventListener("input", applyFilters)
   );
 
   clearBtn.addEventListener("click", () => {
     brandFilter.value = "";
-    stateFilter.value = "";
     fuelFilter.value = "";
     transFilter.value = "";
     priceFilter.value = 50000;

@@ -104,10 +104,9 @@ function vehicleCard(v) {
     .join("");
 
   return `
-    <article class="vehicle-card" data-brand="${v.brand}" data-state="${v.state}" data-fuel="${v.fuel}" data-transmission="${v.transmission}" data-price="${v.price || 0}">
+    <article class="vehicle-card" data-brand="${v.brand}" data-fuel="${v.fuel}" data-transmission="${v.transmission}" data-price="${v.price || 0}">
       <div class="card-image">
         <img src="${imgSrc}" alt="${v.title}" loading="lazy" />
-        ${v.state ? `<span class="badge-state">${v.state}</span>` : ""}
       </div>
       <div class="card-body">
         <h3 class="card-title">${v.year || ""} ${v.brand} ${v.model}</h3>
@@ -119,6 +118,7 @@ function vehicleCard(v) {
           ${v.color ? `<span class="spec"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7L12 12L22 7L12 2Z"/><path d="M2 17L12 22L22 17"/><path d="M2 12L12 17L22 12"/></svg>${v.color}</span>` : ""}
         </div>
         ${equipTags ? `<div class="card-tags">${equipTags}</div>` : ""}
+        <div class="card-spacer"></div>
         <a href="${buildWhatsAppLink(v.title, v.price)}" target="_blank" rel="noopener" class="btn-enquire">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Enquire Now
@@ -129,10 +129,8 @@ function vehicleCard(v) {
 
 function buildHTML(vehicles) {
   const brandSet = [...new Set(vehicles.map((v) => v.brand).filter(Boolean))].sort();
-  const stateSet = [...new Set(vehicles.map((v) => v.state).filter(Boolean))].sort();
 
   const brandOptions = brandSet.map((b) => `<option value="${b}">${b}</option>`).join("");
-  const stateOptions = stateSet.map((s) => `<option value="${s}">${s}</option>`).join("");
 
   const cards = vehicles.map(vehicleCard).join("");
 
@@ -167,7 +165,7 @@ function buildHTML(vehicles) {
       <div class="hero-content">
         <h1>Find your<br/><span class="accent">adventure ride</span></h1>
         <p class="hero-sub">Quality vehicles built for road trips across Australia. Fully equipped, road-ready, and waiting for you.</p>
-        <a href="https://bcaconfigurator.com" target="_blank" rel="noopener" class="btn-primary">
+        <a href="https://configurator.backpacker-cars.com" target="_blank" rel="noopener" class="btn-primary">
           Build Your Own
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
         </a>
@@ -190,12 +188,6 @@ function buildHTML(vehicles) {
             <select id="filter-brand" aria-label="Filter by brand">
               <option value="">All Brands</option>
               ${brandOptions}
-            </select>
-          </div>
-          <div class="filter-group">
-            <select id="filter-state" aria-label="Filter by state">
-              <option value="">All States</option>
-              ${stateOptions}
             </select>
           </div>
           <div class="filter-group">
@@ -229,26 +221,30 @@ function buildHTML(vehicles) {
   </section>
 
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="images/logo.png" alt="BCA" width="120" height="41" />
+    <div class="footer-top">
+      <div class="footer-top-inner">
+        <img src="images/logo.png" alt="BCA" />
         <p class="footer-address">21 Luland Street, Botany NSW 2019</p>
       </div>
-      <div class="footer-links">
-        <h4>Links</h4>
-        <a href="https://backpackercars.com" target="_blank" rel="noopener">backpackercars.com</a>
-        <a href="https://luffare.com.au" target="_blank" rel="noopener">luffare.com.au</a>
-        <a href="https://bcaconfigurator.com" target="_blank" rel="noopener">bcaconfigurator.com</a>
-      </div>
-      <div class="footer-contact">
-        <h4>Contact</h4>
-        <a href="https://wa.me/61431024621" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          +61 431 024 621
-        </a>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; ${new Date().getFullYear()} BackpackerCars Australia. All rights reserved.</p>
+    </div>
+    <div class="footer-bottom-section">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <h4>Links</h4>
+          <a href="https://backpackercars.com" target="_blank" rel="noopener">backpackercars.com</a>
+          <a href="https://luffare.com.au" target="_blank" rel="noopener">luffare.com.au</a>
+          <a href="https://configurator.backpacker-cars.com" target="_blank" rel="noopener">bcaconfigurator.com</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <a href="https://wa.me/61431024621" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            +61 431 024 621
+          </a>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; ${new Date().getFullYear()} BackpackerCars Australia. All rights reserved.</p>
+        </div>
       </div>
     </div>
   </footer>

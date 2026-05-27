@@ -56,8 +56,9 @@ a {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--space);
-  border-bottom: 3px solid var(--vermillion);
+  background: var(--white);
+  border-bottom: 2px solid var(--frost);
+  box-shadow: 0 1px 8px rgba(27, 35, 73, 0.06);
 }
 
 .header-inner {
@@ -75,10 +76,6 @@ a {
   width: auto;
 }
 
-.header .logo img,
-.footer-brand img {
-  filter: brightness(0) invert(1);
-}
 
 .header-nav {
   display: flex;
@@ -88,13 +85,13 @@ a {
 .header-nav a {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--frost);
+  color: var(--slate);
   letter-spacing: 0.02em;
   transition: color 0.2s;
 }
 
 .header-nav a:hover {
-  color: var(--white);
+  color: var(--space);
 }
 
 /* ─── HERO ─── */
@@ -199,6 +196,7 @@ a {
 /* ─── STOCK SECTION ─── */
 .stock {
   padding: 64px 0 96px;
+  background: var(--white);
 }
 
 .stock-inner {
@@ -349,21 +347,6 @@ a {
   transform: scale(1.04);
 }
 
-.badge-state {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 12px;
-  background: var(--space);
-  color: var(--white);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
 .card-body {
   padding: 20px;
   display: flex;
@@ -427,12 +410,15 @@ a {
   letter-spacing: 0.02em;
 }
 
+.card-spacer {
+  flex: 1;
+}
+
 .btn-enquire {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: auto;
   padding: 12px 0;
   margin-top: 18px;
   background: var(--jungle);
@@ -463,27 +449,46 @@ a {
 
 /* ─── FOOTER ─── */
 .footer {
+  border-top: 4px solid var(--vermillion);
+}
+
+.footer-top {
+  background: var(--white);
+  padding: 40px 0;
+}
+
+.footer-top-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-top-inner img {
+  height: 36px;
+  width: auto;
+}
+
+.footer-address {
+  font-size: 0.9rem;
+  color: var(--slate);
+  line-height: 1.6;
+}
+
+.footer-bottom-section {
   background: var(--space);
   color: var(--frost);
-  border-top: 4px solid var(--vermillion);
 }
 
 .footer-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 56px 24px 32px;
+  padding: 40px 24px 32px;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 48px;
-}
-
-.footer-brand img {
-  margin-bottom: 16px;
-}
-
-.footer-address {
-  font-size: 0.9rem;
-  line-height: 1.6;
 }
 
 .footer h4 {
@@ -578,6 +583,12 @@ a {
 
   .vehicle-grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer-top-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .footer-inner {
