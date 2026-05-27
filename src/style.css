@@ -99,6 +99,13 @@ a {
   background: var(--space);
   position: relative;
   overflow: hidden;
+  background-image: linear-gradient(
+      rgba(27, 35, 73, 0.65),
+      rgba(27, 35, 73, 0.75)
+    ),
+    url("images/hero.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .hero::after {
