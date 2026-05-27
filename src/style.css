@@ -53,12 +53,15 @@ a {
 
 /* ─── HEADER ─── */
 .header {
-  position: sticky;
+  position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background: var(--white);
-  border-bottom: 2px solid var(--frost);
-  box-shadow: 0 1px 8px rgba(27, 35, 73, 0.06);
+  background: rgba(27, 35, 73, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .header-inner {
@@ -85,13 +88,13 @@ a {
 .header-nav a {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--slate);
+  color: rgba(255, 255, 255, 0.8);
   letter-spacing: 0.02em;
   transition: color 0.2s;
 }
 
 .header-nav a:hover {
-  color: var(--space);
+  color: var(--white);
 }
 
 /* ─── HERO ─── */
@@ -121,7 +124,7 @@ a {
 .hero-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 80px 24px 88px;
+  padding: 140px 24px 88px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -552,7 +555,7 @@ a {
 
   .hero-inner {
     flex-direction: column;
-    padding: 48px 24px 56px;
+    padding: 100px 24px 56px;
     text-align: center;
     gap: 32px;
   }

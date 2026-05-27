@@ -169,7 +169,7 @@ function buildHTML(vehicles) {
   <header class="header">
     <div class="header-inner">
       <a href="/" class="logo">
-        <img src="images/logo.png" alt="BCA" width="200" height="68" />
+        <img src="images/logo-white.png" alt="BCA" width="200" height="68" />
       </a>
       <nav class="header-nav">
         <a href="https://backpackercars.com" target="_blank" rel="noopener">backpackercars.com</a>
