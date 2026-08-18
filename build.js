@@ -37,6 +37,8 @@ async function queryStock() {
         and: [
           { property: "Sold?", checkbox: { equals: false } },
           { property: "Rental Car", checkbox: { equals: false } },
+          { property: "Picked Up", checkbox: { equals: false } },
+          { property: "NOT FOR BCA SALE", checkbox: { equals: false } },
         ],
       },
       sorts: [{ property: "Price", direction: "ascending" }],
